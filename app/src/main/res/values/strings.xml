@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">Orion</string>
+
+    <string name="display_names">Display Names</string>
+    <string name="display_email_address">Display Email Address</string>
+
+</resources>

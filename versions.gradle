@@ -1,0 +1,38 @@
+ext.versions = [
+
+        app: "1.0.0",
+
+        sdk: [
+
+            min    : 16,
+            compile: 28,
+            target : 28
+        ],
+
+        tools: [
+
+            gradle: "3.3.2",
+            kotlin: "1.3.21"
+        ],
+
+        libraries: [
+
+            appCompat       : "1.0.2",
+            coreKtx         : "1.0.1",
+            constraintLayout: "1.1.3",
+            lifecycle       : "2.0.0",
+            leakCanary      : "1.6.3",
+            kodein          : "6.1.0",
+            rxJava          : "2.2.7",
+            rxAndroid       : "2.1.1",
+        ],
+
+        versionName: {
+            return ext.versions.app
+        },
+
+        versionCode: {
+            def (major, minor, patch) = ext.versions.app.tokenize('.')
+            return (major.toInteger() * 10000) + (minor.toInteger() * 100) + patch.toInteger()
+        }
+]
