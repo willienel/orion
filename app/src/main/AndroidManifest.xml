@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="za.co.willienel.orion">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -13,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name="za.co.willienel.orion.ui.main.MainActivity">
 
             <intent-filter>
 

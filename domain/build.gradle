@@ -7,7 +7,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.tools.kotlin}"
 
-    implementation "io.reactivex.rxjava2:rxjava:${versions.libraries.rxJava}"
+    api "io.reactivex.rxjava2:rxjava:${versions.libraries.rxJava}"
+    api "io.reactivex.rxjava2:rxandroid:${versions.libraries.rxAndroid}"
 }
 
 sourceCompatibility = "7"

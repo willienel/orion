@@ -21,14 +21,12 @@ android {
         debug {
 
             minifyEnabled true
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
 
             minifyEnabled true
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,16 +45,16 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.tools.kotlin}"
 
-    implementation "io.reactivex.rxjava2:rxjava:${versions.libraries.rxJava}"
-    implementation "io.reactivex:rxandroid:${versions.libraries.rxAndroid}"
+    api "io.reactivex.rxjava2:rxjava:${versions.libraries.rxJava}"
+    api "io.reactivex.rxjava2:rxandroid:${versions.libraries.rxAndroid}"
 
-    implementation "com.squareup.okhttp3:okhttp:${versions.libraries.okHttp}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${versions.libraries.okHttp}"
+    api "com.squareup.okhttp3:okhttp:${versions.libraries.okHttp}"
+    api "com.squareup.okhttp3:logging-interceptor:${versions.libraries.okHttp}"
 
-    implementation "com.squareup.retrofit2:retrofit:${versions.libraries.retrofit}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.libraries.retrofit}"
-    implementation "com.squareup.retrofit2:converter-moshi:${versions.libraries.retrofit}"
+    api "com.squareup.retrofit2:retrofit:${versions.libraries.retrofit}"
+    api "com.squareup.retrofit2:adapter-rxjava2:${versions.libraries.retrofit}"
+    api "com.squareup.retrofit2:converter-moshi:${versions.libraries.retrofit}"
 
-    implementation "com.squareup.moshi:moshi-kotlin:${versions.libraries.moshi}"
+    api "com.squareup.moshi:moshi-kotlin:${versions.libraries.moshi}"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:${versions.libraries.moshi}"
 }
