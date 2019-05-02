@@ -67,6 +67,9 @@ dependencies {
     implementation "org.kodein.di:kodein-di-generic-jvm:${versions.libraries.kodein}"
     implementation "org.kodein.di:kodein-di-framework-android-x:${versions.libraries.kodein}"
 
+    implementation "io.reactivex.rxjava2:rxjava:${versions.libraries.rxJava}"
+    implementation "io.reactivex:rxandroid:${versions.libraries.rxAndroid}"
+
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${versions.libraries.leakCanary}"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${versions.libraries.leakCanary}"
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:${versions.libraries.leakCanary}"

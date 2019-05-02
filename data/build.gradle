@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -41,4 +42,21 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':domain')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.tools.kotlin}"
+
+    implementation "io.reactivex.rxjava2:rxjava:${versions.libraries.rxJava}"
+    implementation "io.reactivex:rxandroid:${versions.libraries.rxAndroid}"
+
+    implementation "com.squareup.okhttp3:okhttp:${versions.libraries.okHttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.libraries.okHttp}"
+
+    implementation "com.squareup.retrofit2:retrofit:${versions.libraries.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.libraries.retrofit}"
+    implementation "com.squareup.retrofit2:converter-moshi:${versions.libraries.retrofit}"
+
+    implementation "com.squareup.moshi:moshi-kotlin:${versions.libraries.moshi}"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:${versions.libraries.moshi}"
 }
