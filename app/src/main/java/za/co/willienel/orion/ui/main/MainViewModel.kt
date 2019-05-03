@@ -10,6 +10,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import za.co.willienel.domain.users.usecases.GetUsersUseCase
+import za.co.willienel.orion.util.livedata.Event
 
 class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() {
 
@@ -20,8 +21,8 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
 
     private val subscriptions: CompositeDisposable = CompositeDisposable()
 
-    private val namesLiveData: MutableLiveData<List<String>> = MutableLiveData()
-    private val emailAddressesLiveData: MutableLiveData<List<String>> = MutableLiveData()
+    private val namesLiveData: MutableLiveData<Event<List<String>>> = MutableLiveData()
+    private val emailAddressesLiveData: MutableLiveData<Event<List<String>>> = MutableLiveData()
 
     fun queryNames() {
 
@@ -36,7 +37,7 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ namesList ->
-                    namesLiveData.value = namesList
+                    namesLiveData.value = Event(namesList)
                 }, { error ->
                     Timber.e(error)
                 })
@@ -59,7 +60,7 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ emailList ->
-                    emailAddressesLiveData.value = emailList
+                    emailAddressesLiveData.value = Event(emailList)
                 }, { error ->
                     Timber.e(error)
                 })
@@ -74,11 +75,11 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
         subscriptions.clear()
     }
 
-    fun nameListUpdates(): LiveData<List<String>> {
+    fun nameListUpdates(): LiveData<Event<List<String>>> {
         return namesLiveData
     }
 
-    fun emailAddressListUpdates(): LiveData<List<String>> {
+    fun emailAddressListUpdates(): LiveData<Event<List<String>>> {
         return emailAddressesLiveData
     }
 

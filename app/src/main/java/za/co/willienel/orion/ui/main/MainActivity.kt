@@ -51,14 +51,18 @@ class MainActivity : KodeinActivity() {
 
         mainViewModel
             .nameListUpdates()
-            .observe(this, Observer { namesList ->
-                mainView.showNames(namesList)
+            .observe(this, Observer { namesListEvent ->
+                namesListEvent.getContentIfNotHandled()?.let { namesList ->
+                    mainView.showNames(namesList)
+                }
             })
 
         mainViewModel
             .emailAddressListUpdates()
-            .observe(this, Observer { emailAddressList ->
-                mainView.showEmailAddresses(emailAddressList)
+            .observe(this, Observer { emailAddressesListEvent ->
+                emailAddressesListEvent.getContentIfNotHandled()?.let { emailAddressesList ->
+                    mainView.showEmailAddresses(emailAddressesList)
+                }
             })
     }
 
@@ -75,5 +79,10 @@ class MainActivity : KodeinActivity() {
 
     private fun clearViewSubscriptions() {
         viewSubscriptions.clear()
+    }
+
+    override fun onDestroy() {
+        mainView.onDestroy()
+        super.onDestroy()
     }
 }
