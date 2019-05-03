@@ -9,6 +9,15 @@ when the second button is pressed.
 
 **Note:** Both scenarios refer to https://jsonplaceholder.typicode.com/users
 
+### Release
+
+To build a release apk you need to add the following to your ~/.gradle/gradle.properties file
+
+    ORION_RELEASE_STORE_FILE=<path_to_keystore>
+    ORION_RELEASE_STORE_PASSWORD=<keystore_password>
+    ORION_RELEASE_KEY_ALIAS=<keystore_alias>
+    ORION_RELEASE_KEY_PASSWORD=<keystore_alias_password>
+
 ## License
 
     Copyright 2019 Willie Nel

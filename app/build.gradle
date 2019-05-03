@@ -18,6 +18,16 @@ android {
         versionCode versions.versionCode()
     }
 
+    signingConfigs {
+
+        release {
+            storeFile file(ORION_RELEASE_STORE_FILE)
+            storePassword ORION_RELEASE_STORE_PASSWORD
+            keyAlias ORION_RELEASE_KEY_ALIAS
+            keyPassword ORION_RELEASE_KEY_PASSWORD
+        }
+    }
+
     buildTypes {
 
         debug {
@@ -25,6 +35,8 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            applicationIdSuffix ".debug"
         }
 
         release {
@@ -32,6 +44,8 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
         }
     }
 
