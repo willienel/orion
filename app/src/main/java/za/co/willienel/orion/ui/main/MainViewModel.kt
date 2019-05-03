@@ -1,6 +1,9 @@
 package za.co.willienel.orion.ui.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -10,18 +13,56 @@ import za.co.willienel.domain.users.usecases.GetUsersUseCase
 
 class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() {
 
+    companion object {
+
+        private const val USERNAME_SAMANTHA: String = "Samantha"
+    }
+
     private val subscriptions: CompositeDisposable = CompositeDisposable()
 
-    fun loadUsers() {
+    private val namesLiveData: MutableLiveData<List<String>> = MutableLiveData()
+    private val emailAddressesLiveData: MutableLiveData<List<String>> = MutableLiveData()
+
+    fun queryNames() {
 
         addSubscription(
             getUsersUseCase
                 .getUsers()
+                .flatMap { userList ->
+                    Observable.fromIterable(userList)
+                        .map { user -> user.name }
+                        .toList()
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { users -> Timber.d("$users") },
-                    { error -> Timber.e(error) })
+                .subscribe({ namesList ->
+                    namesLiveData.value = namesList
+                }, { error ->
+                    Timber.e(error)
+                })
+        )
+    }
+
+    fun queryEmailAddress() {
+
+        addSubscription(
+            getUsersUseCase
+                .getUsers()
+                .flatMap { userList ->
+                    Observable.fromIterable(userList)
+                        .filter { user ->
+                            user.username == USERNAME_SAMANTHA
+                        }
+                        .map { user -> user.email }
+                        .toList()
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ emailList ->
+                    emailAddressesLiveData.value = emailList
+                }, { error ->
+                    Timber.e(error)
+                })
         )
     }
 
@@ -29,8 +70,20 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
         subscriptions.add(disposable)
     }
 
+    private fun clearSubscriptions() {
+        subscriptions.clear()
+    }
+
+    fun nameListUpdates(): LiveData<List<String>> {
+        return namesLiveData
+    }
+
+    fun emailAddressListUpdates(): LiveData<List<String>> {
+        return emailAddressesLiveData
+    }
+
     override fun onCleared() {
         super.onCleared()
-        subscriptions.clear()
+        clearSubscriptions()
     }
 }

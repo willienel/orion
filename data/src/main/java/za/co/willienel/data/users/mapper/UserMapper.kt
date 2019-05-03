@@ -8,7 +8,7 @@ class UserMapper {
     companion object {
 
         fun fromUserEntity(userEntity: UserEntity): User {
-            return User(userEntity.id, userEntity.name, userEntity.email)
+            return User(userEntity.id, userEntity.name, userEntity.username, userEntity.email)
         }
     }
 }

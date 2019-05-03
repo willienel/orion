@@ -3,21 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="bottom"
     android:orientation="vertical"
     android:padding="@dimen/default_activity_padding"
     tools:context=".ui.main.MainActivity">
 
     <Button
-        android:id="@+id/btnDisplayNames"
+        android:id="@+id/btnQueryNames"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/display_names" />
+        android:text="@string/query_names" />
 
     <Button
-        android:id="@+id/btnDisplayEmailAddress"
+        android:id="@+id/btnQueryEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/display_email_address" />
+        android:text="@string/query_email_address" />
 
 </LinearLayout>

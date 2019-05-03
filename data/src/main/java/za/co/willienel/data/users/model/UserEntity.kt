@@ -10,6 +10,9 @@ data class UserEntity(
     @field:Json(name = "name")
     val name: String,
 
+    @field:Json(name = "username")
+    val username: String,
+
     @field:Json(name = "email")
     val email: String
 )
