@@ -4,7 +4,12 @@
 
     <string name="query_names">Query Names</string>
     <string name="query_email_address">Query Email Address</string>
-    
+
     <string name="api_url">https://jsonplaceholder.typicode.com</string>
+
+    <string name="error_message_no_names">No names to display</string>
+    <string name="error_message_no_email_addresses">No email addresses to display</string>
+
+    <string name="ok">OK</string>
 
 </resources>

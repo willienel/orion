@@ -8,14 +8,9 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.view.*
-import timber.log.Timber
+import za.co.willienel.orion.R
 
 class MainView(layoutInflater: LayoutInflater, @LayoutRes layoutResourceId: Int) {
-
-    companion object {
-
-        const val POSITIVE_TEXT_OK: String = "OK"
-    }
 
     private val rootView: View = layoutInflater.inflate(layoutResourceId, null, false)
 
@@ -39,16 +34,26 @@ class MainView(layoutInflater: LayoutInflater, @LayoutRes layoutResourceId: Int)
 
     fun showNames(namesList: List<String>) {
 
-        Timber.d("Names: $namesList")
+        if (namesList.isEmpty()) {
+            showAlertDialog(rootView.context.getString(R.string.error_message_no_names))
+            return
+        }
 
         showAlertDialog(namesList.joinToString("\n"))
     }
 
     fun showEmailAddresses(emailAddressList: List<String>) {
 
-        Timber.d("Email Addresses: $emailAddressList")
+        if (emailAddressList.isEmpty()) {
+            showAlertDialog(rootView.context.getString(R.string.error_message_no_email_addresses))
+            return
+        }
 
         showAlertDialog(emailAddressList.joinToString("\n"))
+    }
+
+    fun showErrorMessage(message: String) {
+        showAlertDialog(message)
     }
 
     fun queryNamesClicked(): Flowable<View> {
@@ -67,7 +72,7 @@ class MainView(layoutInflater: LayoutInflater, @LayoutRes layoutResourceId: Int)
 
         alertDialog = AlertDialog.Builder(rootView.context)
             .setMessage(message)
-            .setPositiveButton(POSITIVE_TEXT_OK) { dialogInterface, _ ->
+            .setPositiveButton(rootView.context.getString(R.string.ok)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
             .create()

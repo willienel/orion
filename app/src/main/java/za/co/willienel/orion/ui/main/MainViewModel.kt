@@ -10,6 +10,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import za.co.willienel.domain.users.usecases.GetUsersUseCase
+import za.co.willienel.orion.util.exception.UserFriendlyException
 import za.co.willienel.orion.util.livedata.Event
 
 class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() {
@@ -23,6 +24,7 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
 
     private val namesLiveData: MutableLiveData<Event<List<String>>> = MutableLiveData()
     private val emailAddressesLiveData: MutableLiveData<Event<List<String>>> = MutableLiveData()
+    private val errorMessageLiveData: MutableLiveData<Event<String>> = MutableLiveData()
 
     fun queryNames() {
 
@@ -40,6 +42,7 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
                     namesLiveData.value = Event(namesList)
                 }, { error ->
                     Timber.e(error)
+                    errorMessageLiveData.value = Event(UserFriendlyException(error).getMessage())
                 })
         )
     }
@@ -63,6 +66,7 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
                     emailAddressesLiveData.value = Event(emailList)
                 }, { error ->
                     Timber.e(error)
+                    errorMessageLiveData.value = Event(UserFriendlyException(error).getMessage())
                 })
         )
     }
@@ -81,6 +85,10 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
 
     fun emailAddressListUpdates(): LiveData<Event<List<String>>> {
         return emailAddressesLiveData
+    }
+
+    fun errorMessageUpdates(): LiveData<Event<String>> {
+        return errorMessageLiveData
     }
 
     override fun onCleared() {

@@ -64,6 +64,14 @@ class MainActivity : KodeinActivity() {
                     mainView.showEmailAddresses(emailAddressesList)
                 }
             })
+
+        mainViewModel
+            .errorMessageUpdates()
+            .observe(this, Observer { errorMessageEvent ->
+                errorMessageEvent.getContentIfNotHandled()?.let { errorMessage ->
+                    mainView.showErrorMessage(errorMessage)
+                }
+            })
     }
 
     override fun unregisterViewListeners() {
