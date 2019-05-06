@@ -66,6 +66,11 @@ class MainView(layoutInflater: LayoutInflater, @LayoutRes layoutResourceId: Int)
         return queryEmailAddressClickListener.toFlowable(BackpressureStrategy.LATEST)
     }
 
+    fun showProgress(showProgress: Boolean) {
+
+        rootView.progress.visibility = if (showProgress) View.VISIBLE else View.GONE
+    }
+
     private fun showAlertDialog(message: String) {
 
         dismissDialogIfShowing()

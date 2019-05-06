@@ -1,6 +1,6 @@
 ext.versions = [
 
-        app: "1.0.0",
+        app: "1.0.1",
 
         sdk: [
 

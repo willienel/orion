@@ -72,6 +72,13 @@ class MainActivity : KodeinActivity() {
                     mainView.showErrorMessage(errorMessage)
                 }
             })
+
+        mainViewModel.progressUpdates()
+            .observe(this, Observer { progressEvent ->
+                progressEvent.getContentIfNotHandled()?.let { progress ->
+                    mainView.showProgress(progress)
+                }
+            })
     }
 
     override fun unregisterViewListeners() {

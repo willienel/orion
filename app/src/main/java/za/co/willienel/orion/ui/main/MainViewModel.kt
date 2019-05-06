@@ -25,12 +25,19 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
     private val namesLiveData: MutableLiveData<Event<List<String>>> = MutableLiveData()
     private val emailAddressesLiveData: MutableLiveData<Event<List<String>>> = MutableLiveData()
     private val errorMessageLiveData: MutableLiveData<Event<String>> = MutableLiveData()
+    private val progressLiveData: MutableLiveData<Event<Boolean>> = MutableLiveData()
 
     fun queryNames() {
 
         addSubscription(
             getUsersUseCase
                 .getUsers()
+                .doOnSubscribe {
+                    progressLiveData.postValue(Event(true))
+                }
+                .doFinally {
+                    progressLiveData.postValue(Event(false))
+                }
                 .flatMap { userList ->
                     Observable.fromIterable(userList)
                         .map { user -> user.name }
@@ -52,6 +59,12 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
         addSubscription(
             getUsersUseCase
                 .getUsers()
+                .doOnSubscribe {
+                    progressLiveData.postValue(Event(true))
+                }
+                .doFinally {
+                    progressLiveData.postValue(Event(false))
+                }
                 .flatMap { userList ->
                     Observable.fromIterable(userList)
                         .filter { user ->
@@ -89,6 +102,10 @@ class MainViewModel(private val getUsersUseCase: GetUsersUseCase) : ViewModel() 
 
     fun errorMessageUpdates(): LiveData<Event<String>> {
         return errorMessageLiveData
+    }
+
+    fun progressUpdates(): LiveData<Event<Boolean>> {
+        return progressLiveData
     }
 
     override fun onCleared() {
