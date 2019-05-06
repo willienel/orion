@@ -10,8 +10,8 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun registerViewModelListeners()
     abstract fun unregisterViewModelListeners()
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
+    override fun onResume() {
+        super.onResume()
         registerViewListeners()
         registerViewModelListeners()
     }
